@@ -1,0 +1,2 @@
+,request_id,strike_price,option_type,bid,ask,iv,delta,theta,gamma,spread_suggestion
+TEMPLATE-001,TEMPLATE,Defined risk preferred,Call or Put,Liquidity check,Liquidity check,Context only (IV rank),Risk definition,Time decay awareness,Convexity awareness,Prefer tight spreads; defined-risk structures unless authorized
