@@ -1,0 +1,9 @@
+,request_id,play_type,entry_zone,exit_target,support_zone,resistance_zone,risk_reward_ratio,final_recommendation
+TEMPLATE-001,TEMPLATE,Trend Continuation,Pullback to MA zone or minor structure break + volume,Measured move or trailing structure,Invalidation level,Prior swing,1.5:1 minimum after costs,TEMPLATE ONLY — no edge claimed. Replace with real plays.
+CSP-TEMPLATE,TEMPLATE,Cash-Secured Put,Sell put at selected delta; reserve cash,Premium target or assignment,Technical support,N/A,Premium vs downside to strike,TEMPLATE — defined risk via cash reserve
+CC-TEMPLATE,TEMPLATE,Covered Call,Sell call against long stock,Premium target or assignment,Stock support,Call strike,Premium + upside to strike,TEMPLATE — limited by shares owned
+IC-TEMPLATE,TEMPLATE,Iron Condor,Sell OTM put + call spreads,Premium target or manage wings,Lower short strike,Upper short strike,Credit vs wing width,TEMPLATE — defined risk range play
+WHEEL-TEMPLATE,TEMPLATE,Wheel,CSP then CC if assigned,Cycle premium capture,Underlying thesis support,N/A,Cumulative premium vs capital,TEMPLATE — systematic process
+CAL-TEMPLATE,TEMPLATE,Calendar Spread,Sell nearer DTE buy longer DTE same/nearby strike,Differential decay target,Strike zone,N/A,Debit vs potential decay profit,TEMPLATE — low-IV term structure
+BF-TEMPLATE,TEMPLATE,Long Butterfly,Buy wings sell 2x body,Pin or range profit target,Lower wing,Upper wing,Debit vs body profit,TEMPLATE — range / low vol
+EARN-TEMPLATE,TEMPLATE,Earnings IV-Crush (Post),Post-earnings short premium defined-risk,IV crush / premium capture,Expected range lower,Expected range upper,Credit vs wing width,TEMPLATE — post-event only
