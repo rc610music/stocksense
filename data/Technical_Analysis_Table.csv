@@ -1,0 +1,2 @@
+,request_id,rsi,macd,sma_20,sma_50,ema_20,volume,trend_summary
+TEMPLATE-001,TEMPLATE,Use as regime filter only,Use as confirmation,Regime filter,Regime filter,Regime filter,Liquidity confirmation,Higher-timeframe trend state for regime filter
