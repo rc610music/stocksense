@@ -30,3 +30,31 @@ CHIP (USD.AI), XRP, XLM, ADA, XTZ, DOGE, SHIB. These are user-identified holding
 
 ## Implementation dependency
 The rc610music/stocksense GitHub repository currently contains research docs and CSV templates, not the live app source. Locate the actual StockSense application source/deployment, then implement there. This file is NOT evidence of deployed functionality.
+
+
+## Market data freshness and evidence contract (v0.2, 2026-11-15)
+Targets below are design SLOs contingent on provider availability, entitlements and rate limits, NOT claims of currently deployed feeds.
+- Quotes/trades: target 5–30s age for liquid pairs; order-book depth: 5–15s; on-chain transfer alerts: 1–5m after indexing; supply/unlock changes: event-triggered with daily reconciliation; protocol metrics: hourly or best supported cadence; news/security/governance: monitored on available feeds. Each asset/provider can have a different cadence.
+- Every observation must contain asset_id, chain_id/contract (if relevant), provider, source_url or provider record, exchange/venue, quote_currency, value, unit, event_time, provider_time, fetched_at, observed_at, age_seconds, coverage, and quality_state (live/delayed/cached/stale/missing/conflicted). Keep raw payload reference and normalization version for auditability.
+- Quote timestamp cannot be replaced by fetch timestamp. Never label a delayed REST snapshot 'real time'. Exchange timestamps and clock drift must be normalized to UTC. Avoid comparing unaligned quotes.
+- Use websocket streaming where supported, REST polling with bounded backoff otherwise; cross-check prices with a second independent venue/source. Reject outliers with documented rules and retain disagreements for review. Detect zero/negative/NaN prices, crossed books, missing bids/asks, thin liquidity, and wash-volume concerns.
+- If primary feed is stale, fall back to another provider and label the switch. If all feeds fail, show last verified quote with timestamp and STALE label or no quote, never a synthetic live number.
+- Token supply reconciliation: compare verified contract state/chain indexer with issuer vesting schedules and independent aggregators; distinguish circulating, unlocked, treasury, bridged, burned, and economically liquid supply. Store snapshot block number, chain finality, and any assumptions. Do not double-count bridged/wrapped supply.
+- Alert rules require materiality thresholds, deduplication, evidence links, and rate limits; distinguish transfer to exchange from a confirmed sale, and announced unlock from circulating supply increase.
+
+## Competitive edge: measurable research, not guaranteed alpha
+- Define hypotheses in advance (e.g., verified unlock plus deteriorating order-book depth predicts elevated downside risk) and benchmark against simple price momentum and buy-and-hold, with predeclared horizons and outcomes.
+- Run event-time backtests with point-in-time datasets, fees, spread, slippage, liquidity constraints, survivorship bias checks, token migrations, and delistings. Prevent look-ahead and data leakage.
+- Use chronological train/validation/test splits and walk-forward out-of-sample testing. Report hit rate, precision/recall, calibration, drawdown, risk-adjusted return and sample size with uncertainty intervals; avoid cherry-picked examples.
+- Paper-trade and monitor drift before considering any execution workflow. No autonomous trading, no promise of outperforming the market.
+- Distinguish a verified finding from a hypothesis, a model estimate, and an actionable recommendation. Each report must state what would invalidate the thesis.
+
+## Engineering verification gates
+1. Simulated delayed feed: stale state is visible and no real-time claim survives.
+2. Conflicting venues: provenance and conflict warning preserved; no silent averaging.
+3. Reorg/bridged supply: chain finality and double-count safeguards.
+4. Unsupported or duplicated ticker: no forced token match.
+5. Backtest leakage: enforce point-in-time availability and fees/slippage.
+6. Provider outage/rate limit: bounded retries and graceful degradation.
+7. Regression: equity, ETF, options and crypto lookups still work.
+8. Only label the system 'live verified' after actual deployed endpoint and feed tests; docs/tests alone are not live integration.
